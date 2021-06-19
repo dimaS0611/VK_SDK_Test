@@ -11,7 +11,6 @@ import VK_ios_sdk
 class ViewController: UIViewController, VKSdkDelegate, VKSdkUIDelegate {
     
     func vkSdkShouldPresent(_ controller: UIViewController!) {
-        
         // -TODO: move to WebView
     }
     
@@ -25,7 +24,8 @@ class ViewController: UIViewController, VKSdkDelegate, VKSdkUIDelegate {
             accsessToken = result.token.accessToken
             
             let stroryboard = UIStoryboard(name: "Tabbar", bundle: nil)
-            let vc = stroryboard.instantiateViewController(identifier: "Tabbar")
+            let vc = stroryboard.instantiateViewController(identifier: "Tabbar") as! FeedViewController
+            vc.token = accsessToken
             self.navigationController?.pushViewController(vc, animated: true)
             
         } else if((result.error) != nil) {
@@ -55,7 +55,6 @@ class ViewController: UIViewController, VKSdkDelegate, VKSdkUIDelegate {
             } else {
                 VKSdk.authorize(self.scope)
             }
-            return
         })
         
 //
