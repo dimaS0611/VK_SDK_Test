@@ -9,15 +9,13 @@ import UIKit
 
 class FeedTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
+    @IBOutlet weak var postName: UILabel!
+    @IBOutlet weak var postDate: UILabel!
+    @IBOutlet weak var postText: UILabel!
+    @IBOutlet weak var postImage: UIImageView!
+    
+    @IBOutlet weak var likes: UILabel!
+    @IBOutlet weak var coments: UILabel!
+    @IBOutlet weak var reposts: UILabel!
+    @IBOutlet weak var views: UILabel!
 }
