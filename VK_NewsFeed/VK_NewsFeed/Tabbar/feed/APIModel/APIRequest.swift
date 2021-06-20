@@ -15,12 +15,15 @@ protocol NetworkConnection {
 struct APIRequest {
     
     var accessToken: String
-    init(token: String) {
+    var userId: Int
+    
+    init(token: String, id: Int) {
         self.accessToken = token
+        self.userId = id
     }
     
     func fetchData(completion: @escaping (FeedResponse?) -> Void) {
-        let request = NSMutableURLRequest(url: NSURL(string: "\(APIStruct.scheme)\(APIStruct.hostName) \(APIStruct.method)?filters=post,photo&access_token=\(accessToken)")! as URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
+        let request = NSMutableURLRequest(url: NSURL(string: "https://api.vk.com/method/newsfeed.get?user_id=\(userId)&filters=post,photo&v=5.131&access_token=\(accessToken)")! as URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
         
         request.httpMethod = "GET"
         
@@ -32,10 +35,10 @@ struct APIRequest {
             } else {
                 do {
                     let jsonData = String(decoding: data!, as: UTF8.self)
-                    let response  = try? JSONDecoder().decode(FeedResponseWrapped.self, from: jsonData.data(using: .utf8)!)
+                    let response  = try! JSONDecoder().decode(FeedResponseWrapped.self, from: jsonData.data(using: .utf8)!)
                     
-                    completion(response?.response)
-                    print(jsonData)
+                    completion(response.response)
+                    print(response.response.items.count)
                 }
             }
             

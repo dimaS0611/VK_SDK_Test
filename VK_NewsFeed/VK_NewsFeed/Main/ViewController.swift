@@ -22,17 +22,19 @@ class ViewController: UIViewController, VKSdkDelegate, VKSdkUIDelegate {
         if((result.token) != nil) {
             print("token: \(String(describing: result.token))")
             accsessToken = result.token.accessToken
-            
-            let stroryboard = UIStoryboard(name: "Tabbar", bundle: nil)
-            let vc = stroryboard.instantiateViewController(identifier: "Tabbar") as! FeedViewController
-            vc.token = accsessToken
-            self.navigationController?.pushViewController(vc, animated: true)
-            
         } else if((result.error) != nil) {
             print(result.error.debugDescription)
         }
     }
     
+    func vkSdkAuthorizationStateUpdated(with result: VKAuthorizationResult!) {
+        let stroryboard = UIStoryboard(name: "Tabbar", bundle: nil)
+        let tabbarController = stroryboard.instantiateViewController(identifier: "Tabbar") as! UITabBarController
+        let destinationController = tabbarController.viewControllers?[0] as! FeedViewController
+        destinationController.token = accsessToken
+        destinationController.id = result.user.id.intValue
+        self.navigationController?.pushViewController(tabbarController, animated: true)
+    }
     func vkSdkUserAuthorizationFailed() {
        
     }
