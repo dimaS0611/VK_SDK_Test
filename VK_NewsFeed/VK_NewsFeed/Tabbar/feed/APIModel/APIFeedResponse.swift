@@ -26,7 +26,6 @@ struct FeedItem: Decodable {
     let likes: CounterItem?
     let reposts: CounterItem?
     let views: CounterItem?
-    
 }
 
 struct Attachements: Decodable {
@@ -58,7 +57,6 @@ struct Photo: Decodable {
             return PhotoSize(height: 0, url: "err", type: "err", width: 0)
         }
     }
-    
 }
 
 struct PhotoSize : Decodable {
