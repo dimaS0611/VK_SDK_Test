@@ -32,7 +32,6 @@ struct APIProfileRequest {
                     completion(response?.response[0], true)
                 }
             }
-            
         }
         dataTask.resume()
     }

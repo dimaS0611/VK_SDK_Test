@@ -37,7 +37,6 @@ class ProfileViewController: UIViewController {
         view.addSubview(spinner.view)
         spinner.didMove(toParent: self)
         
-        
         APIProfileRequest().fetchData { (result, loaded) in
             self.profile = result
             self.isLoaded = loaded
@@ -50,7 +49,6 @@ class ProfileViewController: UIViewController {
                     self.spinner.view.removeFromSuperview()
                     self.spinner.removeFromParent()
                 }
-                
             }
         }
     }

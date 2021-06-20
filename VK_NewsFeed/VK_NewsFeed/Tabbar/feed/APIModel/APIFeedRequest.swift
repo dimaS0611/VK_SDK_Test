@@ -31,10 +31,8 @@ struct APIFeedRequest {
                     let response  = try? JSONDecoder().decode(FeedResponseWrapped.self, from: jsonData.data(using: .utf8)!)
                     
                     completion(response?.response, true)
-                    
                 }
             }
-            
         }
         dataTask.resume()
     }
