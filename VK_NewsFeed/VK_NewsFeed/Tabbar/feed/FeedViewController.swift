@@ -8,19 +8,19 @@
 import UIKit
 
 class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     @IBOutlet weak var table: UITableView!
     
     var posts: FeedResponse = FeedResponse(items: [], profiles: [], groups: [])
-    var token: String = ""
-    var id: Int = 0
     
     let spinner = SpinnerViewController()
     let dateFormatter = DateFormatter()
     
+    var isLoaded = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.tabBarController?.navigationItem.hidesBackButton = true
         self.tabBarController?.title = "Home"
         
@@ -31,11 +31,17 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         dateFormatter.dateFormat = "MMM d h:mm a"
         
-        APIRequest(token: token, id: id).fetchData { res in
-            self.posts = res ?? FeedResponse(items: [], profiles: [], groups: [])
+        APIFeedRequest().fetchData { (result, loaded) in
+            self.posts = result ?? FeedResponse(items: [], profiles: [], groups: [])
+            self.isLoaded = loaded
             
-            DispatchQueue.main.async {
-                self.table.reloadData()
+            if(self.isLoaded){
+                DispatchQueue.main.async {
+                    self.table.reloadData()
+                    self.spinner.willMove(toParent: self)
+                    self.spinner.view.removeFromSuperview()
+                    self.spinner.removeFromParent()
+                }
             }
         }
     }
@@ -47,11 +53,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     override func viewDidAppear(_ animated: Bool) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            self.spinner.willMove(toParent: self)
-            self.spinner.view.removeFromSuperview()
-            self.spinner.removeFromParent()
-        }
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -14,7 +14,7 @@ struct APIFeedRequest {
     var accessToken: String = VKSdk.accessToken().accessToken
     var userId: String = VKSdk.accessToken().userId
     
-    func fetchData(completion: @escaping (FeedResponse?) -> Void) {
+    func fetchData(completion: @escaping (FeedResponse?, Bool) -> Void) {
         
         let request = NSMutableURLRequest(url: NSURL(string: "https://api.vk.com/method/newsfeed.get?user_id=\(userId)&filters=post,photo&v=5.131&access_token=\(accessToken)")! as URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
         
@@ -28,10 +28,10 @@ struct APIFeedRequest {
             } else {
                 do {
                     let jsonData = String(decoding: data!, as: UTF8.self)
-                    let response  = try! JSONDecoder().decode(FeedResponseWrapped.self, from: jsonData.data(using: .utf8)!)
+                    let response  = try? JSONDecoder().decode(FeedResponseWrapped.self, from: jsonData.data(using: .utf8)!)
                     
-                    completion(response.response)
-                    print(response.response.items.count)
+                    completion(response?.response, true)
+                    
                 }
             }
             

@@ -58,7 +58,7 @@ struct Photo: Decodable {
             return PhotoSize(height: 0, url: "err", type: "err", width: 0)
         }
     }
-        
+    
 }
 
 struct PhotoSize : Decodable {
