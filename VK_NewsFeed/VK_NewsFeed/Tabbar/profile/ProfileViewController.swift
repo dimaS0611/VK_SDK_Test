@@ -29,8 +29,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tabBarController?.navigationController?.title = "Profile"
-        self.tabBarController?.navigationItem.hidesBackButton = true
+        self.tabBarController?.title = "Profile"
         
         addChild(spinner)
         spinner.view.frame = view.frame
