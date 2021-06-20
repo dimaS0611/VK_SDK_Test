@@ -32,7 +32,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rie-F2-VX4">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.76847403775048029" green="0.78713249440046984" blue="0.9877892678434198" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="barTintColor" systemColor="systemBackgroundColor"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

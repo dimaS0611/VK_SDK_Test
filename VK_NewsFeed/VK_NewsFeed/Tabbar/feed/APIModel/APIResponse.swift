@@ -18,11 +18,10 @@ struct FeedResponse: Decodable {
 }
 
 struct FeedItem: Decodable {
-    let sourceId: Int
+    let source_id: Int
     let date: Int
-    let topicId: Int
     let text: String?
-    let attachements: [Attachements]?
+    let attachments: [Attachements]?
     let comments: CounterItem?
     let likes: CounterItem?
     let reposts: CounterItem?
@@ -51,7 +50,7 @@ struct Photo: Decodable {
     }
     
     private func photoSize() -> PhotoSize {
-        if let typeX = sizes.first(where: { $0.type == "x" }) {
+        if let typeX = sizes.first(where: { $0.type == "r" }) {
             return typeX
         } else if let size = sizes.last {
             return size
@@ -75,17 +74,17 @@ struct CounterItem: Decodable {
 
 struct Profile: Decodable {
     let id: Int
-    let firstName: String
-    let lastName: String
-    let photo100: String
+    let first_name: String
+    let last_name: String
+    let photo_100: String
     
     var name: String {
-        return firstName + "" + lastName
+        return first_name + "" + last_name
     }
 }
 
 struct Group: Decodable {
     let id: Int
     let name: String
-    let photo100: String
+    let photo_100: String
 }
