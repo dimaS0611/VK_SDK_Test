@@ -51,11 +51,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.table.rowHeight = UITableView.automaticDimension
     }
     
-    
-    override func viewDidAppear(_ animated: Bool) {
-        
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.items.count
     }
